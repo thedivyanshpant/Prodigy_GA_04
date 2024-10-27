@@ -13,7 +13,7 @@ from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
 from torchvision.utils import save_image
 
-# U-Net Generator
+# U-Net Generator(Fucking Boring)(Still dont know how it is working,but if it works dont touch it)
 class UNetGenerator(nn.Module):
     def __init__(self):
         super(UNetGenerator, self).__init__()
@@ -67,7 +67,7 @@ class UNetGenerator(nn.Module):
 
         return self.tanh(self.final(dec_input))
 
-# PatchGAN Discriminator
+# PatchGAN Discriminator(Shit Did not work. Had to debug for for like 10 hours,this was all because of a bloody comma)
 class PatchGANDiscriminator(nn.Module):
     def __init__(self):
         super(PatchGANDiscriminator, self).__init__()
@@ -101,7 +101,7 @@ discriminator = PatchGANDiscriminator().cuda()
 optimizer_G = optim.Adam(generator.parameters(), lr=0.0002, betas=(0.5, 0.999))
 optimizer_D = optim.Adam(discriminator.parameters(), lr=0.0002, betas=(0.5, 0.999))
 
-# Custom Dataset
+# Custom Dataset(very hard to find)
 class ImageDataset(Dataset):
     def __init__(self, root, transforms_=None, mode='train'):
         self.transform = transforms.Compose(transforms_)
@@ -182,11 +182,11 @@ for epoch in range(n_epochs):
         # Log progress
         print(f"[Epoch {epoch}/{n_epochs}] [Batch {i}/{len(dataloader)}] [D loss: {loss_D.item()}] [G loss: {loss_G.item()}]")
 
-        # Save sample images
+        # Save sample images(Did not know how)
         if i % sample_interval == 0:
             save_image(fake_B.data, f"images/{epoch}_{i}.png", normalize=True)
 
-# Testing
+# Testing(my laptop almost blew running it)
 def sample_images(epoch):
     real_A = next(iter(val_dataloader))['A'].cuda()
     fake_B = generator(real_A)
